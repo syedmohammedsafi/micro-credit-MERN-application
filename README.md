@@ -86,33 +86,21 @@ npm run dev
 # Dependencies
 
 # Tech Stack
+| Client-side                      | Server-side                        | Dev Tools                        |
+|----------------------------------|------------------------------------|----------------------------------|
+| react: ^18.3.1                   | express: ^4.21.2                   | vite: ^6.0.3                     |
+| react-dom: ^18.3.1               | mongoose: ^8.9.2                   | @vitejs/plugin-react: ^4.3.4     |
+| react-router-dom: ^7.1.0         | bcryptjs: ^2.4.3                   | tailwindcss: ^3.4.17             |
+| react-icons: ^5.4.0              | cors: ^2.8.5                       | autoprefixer: ^10.4.20           |
+| react-leaflet: ^4.2.0            | dotenv: ^16.4.7                    | eslint: ^9.17.0                  |
+| leaflet: ^1.9.4                  | jsonwebtoken: ^9.0.2               | eslint-plugin-react: ^7.37.2     |
+| twilio: ^5.4.0                   | jwt-decode: ^4.0.0                 | eslint-plugin-react-hooks: ^5.0.0|
+| zod: ^3.24.1                     | mongodb: ^6.12.0                   | eslint-plugin-react-refresh:^0.4.16|
+|                                  | nodemon: ^3.1.9                    | postcss: ^8.4.49                 |
+|                                  |                                    | @types/react: ^18.3.17           |
+|                                  |                                    | @types/react-dom: ^18.3.5        |
+|                                  |                                    | globals: ^15.13.0                |
 
-| Client-side                      | Server-side                        |
-|----------------------------------|------------------------------------|
-| react: ^18.3.1                   | express: ^4.21.2                   |
-| react-dom: ^18.3.1               | mongoose: ^8.9.2                   |
-| react-router-dom: ^7.1.0         | bcryptjs: ^2.4.3                   |
-| react-icons: ^5.4.0              | cors: ^2.8.5                       |
-| react-leaflet: ^4.2.0            | dotenv: ^16.4.7                    |
-| leaflet: ^1.9.4                  | jsonwebtoken: ^9.0.2               |
-| twilio: ^5.4.0                   | jwt-decode: ^4.0.0                 |
-| zod: ^3.24.1                     | mongodb: ^6.12.0                   |
-|                                  | nodemon: ^3.1.9                    |
-
-| Dev Tools                        |                                    |
-|----------------------------------|------------------------------------|
-| vite: ^6.0.3                     |                                    |
-| @vitejs/plugin-react: ^4.3.4     |                                    |
-| tailwindcss: ^3.4.17             |                                    |
-| autoprefixer: ^10.4.20           |                                    |
-| eslint: ^9.17.0                  |                                    |
-| eslint-plugin-react: ^7.37.2     |                                    |
-| eslint-plugin-react-hooks: ^5.0.0|                                    |
-| eslint-plugin-react-refresh: ^0.4.16|                                 |
-| postcss: ^8.4.49                 |                                    |
-| @types/react: ^18.3.17           |                                    |
-| @types/react-dom: ^18.3.5        |                                    |
-| globals: ^15.13.0                |                                    |
 
 ## Sample Datas 
 
@@ -160,7 +148,7 @@ Admin Collection (Sample Data)
 {
     "_id": "6774e1126dadc5944e24c36b",
     "email": "safi22052004@gmail.com",
-    "password": "$2a$10$wE03kXe0VIkM9aT7otid0.f5v7AN07iHKXU1pP0MkPQURmjN/6Q02",
+    "password": "$2a$10$wE03kXe0VIkM9aT7otid0.f5v7AN07iHKXU1pP0MkPQURmjN/6Q02",     //Password: sadfsadf
     "createdAt": "2025-01-01T00:00:00Z",
     "__v": 0
 }
