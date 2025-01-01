@@ -38,7 +38,7 @@ A **Micro Credit Application** built with **MERN Stack** (MongoDB, Express, Reac
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/micro-credit-app.git
+git clone https://github.com/syedmohammedsafi/micro-credit-app.git
 cd micro-credit-app
 ```
 
