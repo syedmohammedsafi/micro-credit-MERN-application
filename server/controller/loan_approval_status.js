@@ -78,7 +78,6 @@ const approveLoan = async (req, res) => {
 
     res.status(200).json({ message: "Loan Application submitted successfully" });
   } catch (err) {
-    console.log(err);
     res.status(500).json({ error: "Loan approval failed" });
   }
 };

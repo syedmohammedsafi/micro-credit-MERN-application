@@ -1,4 +1,4 @@
-require("dotenv").config();
+require('dotenv').config({ path: '../.env' });
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -9,7 +9,7 @@ const { admin } = require("./controller/admin");
 
 const app = express();
 
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: process.env.CLIENT_ORIGIN, credentials: true }));
 app.use(express.json());
 
 app.post("/register", register);
@@ -20,10 +20,8 @@ app.post("/apply", auth, approveLoan);
 app.get("/loan-status", auth, getLoanDetails);
 app.get("/admin", admin);
 
-const uri = "mongodb+srv://21cs111:21cs111@cluster.sjhbh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster";
-
-mongoose.connect(uri, { serverSelectionTimeoutMS: 60000 })
+mongoose.connect(process.env.MONGO_URI, { serverSelectionTimeoutMS: 60000 })
 .then(() => { console.log("MongoDB connected")})
 .catch((error) => { console.log(error) });
 
-app.listen(5000, () => console.log("Server Running in port 5000"));
+app.listen(process.env.PORT, () => console.log(`Server Running in port ${process.env.PORT}`));

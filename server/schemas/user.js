@@ -31,10 +31,12 @@ const userSchema = new mongoose.Schema({
   gender: { type: String },
   dob: { type: String },
   loanPurpose: { type: String },
+  experience: { type: Number },
   householdSize: { type: Number },
   accountType: { type: String }, 
   accountNumber: { type: String },
-  ifscCode: { type: String },    
+  ifscCode: { type: String },
+  education: { type: String },   
   createdAt: { type: Date, default: Date.now }
 });
 

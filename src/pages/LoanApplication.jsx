@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
-import { jobs, banks, cities, states } from "../components/arrays"
+import { jobs, banks, cities, states, educationalLevels } from "../components/arrays"
 
 // Validation Schema
 const loanApplicationSchema = z.object({
@@ -11,30 +11,17 @@ const loanApplicationSchema = z.object({
   pancard: z.string().regex(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/, "PAN card must be valid (e.g., AAAAA1234A)"),
   houseNumber: z.string().min(1, "House Number is required"),
   area: z.string().min(1, "Area is required"),
-  city: z.string().min(1, "City is required"),
-  state: z.string().min(1, "State is required"),
   zipcode: z.number().int().min(100000, "Invalid Zip code").max(999999, "Invalid Zip code"),
-  address: z.string().min(5, "Address is required"),
-  occupation: z.string().min(1, "Job Title is required"),
   salary: z.number().positive("Salary must be a positive number"),
   presalary: z.number().positive("Previous salary must be a positive number"),
   house: z.boolean(),
   rent: z.number().nonnegative("Rent must be a non-negative number"),
   expense: z.number().positive("Expense must be a positive number"),
   emi: z.number().nonnegative("EMIs must be a non-negative number"),
-  prehike: z.string().min(1, "Last hike date is required"),
-  posthike: z.string().min(1, "Next hike date is required"),
-  bank: z.string().min(1, "Bank name is required"),
   loanamt: z.number().positive("Loan amount must be a positive number"),
   savings: z.number().nonnegative("Savings must be a non-negative number"),
   maritalStatus: z.string().min(1, "Marital status is required"),
-  gender: z.string().min(1, "Gender is required"),
-  dob: z.string().min(1, "Date of birth is required"),
-  loanPurpose: z.string().min(1, "Loan purpose is required"),
   householdSize: z.number().positive("Household size must be a positive number").min(1, "At least 1 person is required in the household"),
-  accountType: z.string().min(1, "Account type is required"),
-  accountNumber: z.string().min(1, "Account number is required"),
-  ifscCode: z.string().min(1, "IFSC code is required") 
 });
 
 function Application() {
@@ -70,6 +57,8 @@ function Application() {
     accountType: "",
     accountNumber: "",
     ifscCode: "",
+    experience: "",
+    education: "",
   });
   const navigate = useNavigate();
 
@@ -91,6 +80,7 @@ function Application() {
         rent: Number(datas.rent),
         expense: Number(datas.expense),
         emi: Number(datas.emi),
+        experience: Number(datas.experience),
         loanamt: Number(datas.loanamt),
         savings: Number(datas.savings),
         householdSize: Number(datas.householdSize),
@@ -106,7 +96,6 @@ function Application() {
     alert("Your Loan Application Submitted")
     navigate('/micro-finance/dashboard')   
     } catch (err) {
-    console.log(err)
     if (err instanceof z.ZodError) {
         const errors = {};
         err.errors.forEach((e) => {
@@ -163,12 +152,20 @@ function Application() {
               <option value="Female">Female</option>
               <option value="Other">Other</option>
             </select>
-            {formErrors.gender && <p className="text-red-500 text-sm">{formErrors.gender}</p>}
           </div>
           <div>
             <label className="text-sm font-medium text-gray-700">Date of Birth<span className="text-red-500">*</span></label>
             <input type="date" name="dob" value={datas.dob} onChange={change} className="mt-1 block w-full px-3 py-2 rounded-md border-1.5 border-gray-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
             {formErrors.dob && <p className="text-red-500 text-sm">{formErrors.dob}</p>}
+          </div>
+          <div>
+            <label className="text-sm font-medium text-gray-700">Educational Qualification<span className="text-red-500">*</span></label>
+            <select name="education" value={datas.education} onChange={change} className="mt-1 block w-full px-3 py-2 rounded-md border-1.5 border-gray-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+              <option value="">Select Educational Level</option>
+              {educationalLevels.map((edu, index) => (
+                <option key={index} value={edu}>{edu}</option>
+              ))}
+            </select>
           </div>
           </>}
 
@@ -189,7 +186,7 @@ function Application() {
             </div>
           )}
           <div>
-            <label className="text-sm font-medium text-gray-700">Number of People in House <span className="text-red-500">*</span></label>
+            <label className="text-sm font-medium text-gray-700">Family Size<span className="text-red-500">*</span></label>
             <input type="number" name="householdSize" value={datas.householdSize} onChange={change} min="1" className="mt-1 block w-full px-3 py-2 rounded-md border-1.5 border-gray-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
             {formErrors.householdSize && <p className="text-red-500 text-sm">{formErrors.householdSize}</p>}
           </div>
@@ -238,7 +235,11 @@ function Application() {
                 <option key={index} value={job}>{job}</option>
               ))}
             </select>
-            {formErrors.occupation && <p className="text-red-500 text-sm">{formErrors.occupation}</p>}
+          </div>
+          <div>
+            <label className="text-sm font-medium text-gray-700">Years of Experience<span className="text-red-500">*</span></label>
+            <input type="number" name="experience" value={datas.experience} onChange={change} className="mt-1 block w-full px-3 py-2 rounded-md border-1.5 border-gray-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
+            {formErrors.experience && <p className="text-red-500 text-sm">{formErrors.experience}</p>}
           </div>
           <div>
             <label className="text-sm font-medium text-gray-700">Current Monthly Salary <span className="text-red-500">*</span></label>
@@ -289,7 +290,6 @@ function Application() {
               <option value="Savings">Savings</option>
               <option value="Current">Current</option>
             </select>
-            {formErrors.accountType && <p className="text-red-500 text-sm">{formErrors.accountType}</p>}
           </div>
           <div>
             <label className="text-sm font-medium text-gray-700">Account Number<span className="text-red-500">*</span></label>
@@ -322,7 +322,6 @@ function Application() {
             <option value="Emergency Fund">Emergency Fund</option>
             <option value="Other">Other</option>
           </select>
-          {formErrors.loanPurpose && <p className="text-red-500 text-sm">{formErrors.loanPurpose}</p>}
           </div></>}
         </div>
         {step !==4 && <div className="flex justify-center my-4">

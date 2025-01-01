@@ -1,3 +1,20 @@
+export const educationalLevels = [
+  "Primary School",
+  "Middle School",
+  "High School",
+  "Intermediate",
+  "Diploma",
+  "Bachelor's Degree",
+  "Master's Degree",
+  "Doctorate (PhD)",
+  "Postdoctoral Research",
+  "Certification (Professional)",
+  "Vocational Training",
+  "Associate Degree",
+  "Executive Education",
+  "Professional Degree (e.g., MD, JD)",
+];
+
 export const states = [
   "Andhra Pradesh",
   "Arunachal Pradesh",

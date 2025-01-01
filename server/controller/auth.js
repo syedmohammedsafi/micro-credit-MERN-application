@@ -1,4 +1,4 @@
-require("dotenv").config();
+require('dotenv').config({ path: '../../.env' });
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../schemas/user");
@@ -11,7 +11,7 @@ const auth = async (req, res, next) => {
     if (!token) {
       throw new Error();
     }
-    const verified = jwt.verify(token, "7d7a17419f4e28b41b14f1a445c8e2168b7758b7c6a97b0bc8d4f7c0d7a4c05a");
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
     req.user = verified;
     next();
   }
@@ -29,13 +29,12 @@ const register = async (req, res) => {
       return res.status(400).json({ message: "user already exists" });
     }
 
-    const newuser = email === "safi22052004@gmail.com" ? Admin({ email, password }) : User({ email, number, password });
+    const newuser = email === process.env.ADMIN_EMAIL ? Admin({ email, password }) : User({ email, number, password });
     await newuser.save();
 
-    const token = jwt.sign({ userId: newuser._id,  role: email === "safi22052004@gmail.com" ? "admin" : "user"  },"7d7a17419f4e28b41b14f1a445c8e2168b7758b7c6a97b0bc8d4f7c0d7a4c05a",{ expiresIn: "7d" });
+    const token = jwt.sign({ userId: newuser._id,  role: email === process.env.ADMIN_EMAIL ? "admin" : "user"  },process.env.JWT_SECRET,{ expiresIn: process.env.JWT_EXPIRES_IN });
     res.status(201).json({ message: "user registered successfully", token });
   } catch (error) {
-    console.log(error)
     res.status(500).json({ message: "Server error", error });
   }
 };
@@ -56,7 +55,7 @@ const login = async (req, res) => {
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid Email or Password" });
     }
-    const token = jwt.sign({ userId: finduser._id, role: admin ? "admin" : "user" }, "7d7a17419f4e28b41b14f1a445c8e2168b7758b7c6a97b0bc8d4f7c0d7a4c05a",{ expiresIn: "7d" });
+    const token = jwt.sign({ userId: finduser._id, role: admin ? "admin" : "user" }, process.env.JWT_SECRET,{ expiresIn: process.env.JWT_EXPIRES_IN });
     res.status(200).json({ message: "logged in successfully", token });
   } catch (error) {
     res.status(500).json({ message: "Server error", error });

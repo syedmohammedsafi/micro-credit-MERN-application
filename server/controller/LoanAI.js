@@ -27,7 +27,7 @@ function calculateLoan(user) {
   const recommendedPeriod = calculateRepayment(approvedAmount, user.salary, factors); // Formula: same as repay calculation
 
   // Calculate the recommended EMI for the approved loan amount
-  const recommendedEMI = calculateEMI(approvedAmount, recommendedPeriod, 0.12); // Formula: EMI = (P * r * (1 + r)^n) / ((1 + r)^n - 1)
+  const recommendedEMI = Math.round(calculateEMI(approvedAmount, recommendedPeriod, 0.12) * 1.10); // Formula: EMI = (P * r * (1 + r)^n) / ((1 + r)^n - 1)
 
   // Determine the loan application status
   let status = "PENDING";

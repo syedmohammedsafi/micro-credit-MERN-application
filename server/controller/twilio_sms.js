@@ -1,7 +1,8 @@
+require('dotenv').config({ path: '../../.env' });
 const twilio = require("twilio");
 
-const accountSid = "AC85c774794f67fc574ce2541afba03328";
-const authToken = "e681f62508354e3748d9535865c7ea57";
+const accountSid = process.env.ACCOUNT_SID;
+const authToken = process.env.AUTH_TOKEN;
 const client = twilio(accountSid, authToken);
 
 const otpStore = new Map();  // In-memory store for OTPs
