@@ -5,6 +5,9 @@ function calculateLoan(user) {
   // Compute various financial factors influencing creditworthiness
   const factors = CreditFactors(user, user.loanamt, repay);
 
+  // Check eligibility by age
+  const isAgeEligible = user.age >= 21 && user.age <= 60;
+
   // Calculate the base credit score
   const baseScore = BaseScore(factors); // Formula: baseScore = 200 * (1 + salaryGrowth) + 200 * (1 - debtToIncome) + 200 * (1 - spending) + 200 * savings + 200 * timeScore
 
@@ -12,7 +15,7 @@ function calculateLoan(user) {
   const riskScore = RiskScore(factors); // Formula: riskScore = max(0, 100 - (number of risky factors) * 25)
 
   // Check eligibility based on base score
-  const isEligible = baseScore >= 600;
+  const isEligible = baseScore >= 600 && isAgeEligible;;
 
   // Determine the maximum loan multiple based on the base score
   const maxLoanMultiple = MaxLoanAmount(baseScore); // Formula: maxLoanMultiple = 12 (score >= 800), 10 (700–799), 8 (600–699), 0 (<600)

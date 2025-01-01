@@ -63,7 +63,6 @@ const approveLoan = async (req, res) => {
 
     // Simulate loan approval or rejection after a delay of 2 minutes
     setTimeout(async () => {
-      console.log("Called")
       if (analysis.isEligible) {
         savedLoan.status = "APPROVED";
         savedLoan.approvedAmount = analysis.approvedAmount;
