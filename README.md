@@ -17,6 +17,24 @@ A **Micro Credit Application** built with **MERN Stack** (MongoDB, Express, Reac
 - **MongoDB Atlas** account
 - **npm** or **yarn**
 
+- A Twilio account is required to send SMS messages.
+- Ensure that the phone numbers you wish to send messages to are **verified** in your Twilio account.  
+  Twilio only allows messages to verified numbers when using a trial account.
+
+## Setting Up Twilio
+
+1. Sign up for a [Twilio Account](https://www.twilio.com/).
+2. Obtain your `Account SID`, `Auth Token`, and a valid Twilio phone number.
+3. Add the phone numbers you want to use to your **Verified Caller IDs** in Twilio:
+   - Log in to the Twilio Console.
+   - Navigate to **Phone Numbers** > **Verified Caller IDs**.
+   - Add and verify the recipient's phone number.
+4. Update your environment variables with Twilio credentials:
+   ```env
+   TWILIO_ACCOUNT_SID=your_account_sid
+   TWILIO_AUTH_TOKEN=your_auth_token
+   TWILIO_PHONE_NUMBER=your_twilio_phone_number
+
 ### 1. Clone the repository
 
 ```bash

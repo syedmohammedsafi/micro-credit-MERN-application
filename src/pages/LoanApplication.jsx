@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
@@ -12,14 +12,15 @@ const loanApplicationSchema = z.object({
   houseNumber: z.string().min(1, "House Number is required"),
   area: z.string().min(1, "Area is required"),
   zipcode: z.number().int().min(100000, "Invalid Zip code").max(999999, "Invalid Zip code"),
-  salary: z.number().positive("Salary must be a positive number"),
-  presalary: z.number().positive("Previous salary must be a positive number"),
+  salary: z.number().nonnegative("Salary must be a positive number"),
+  presalary: z.number().nonnegative("Previous salary must be a positive number"),
   house: z.boolean(),
   rent: z.number().nonnegative("Rent must be a non-negative number"),
   expense: z.number().positive("Expense must be a positive number"),
   emi: z.number().nonnegative("EMIs must be a non-negative number"),
   loanamt: z.number().positive("Loan amount must be a positive number"),
   savings: z.number().nonnegative("Savings must be a non-negative number"),
+  experience: z.number().nonnegative("Experience must be a non-negative number"),
   maritalStatus: z.string().min(1, "Marital status is required"),
   householdSize: z.number().positive("Household size must be a positive number").min(1, "At least 1 person is required in the household"),
 });
@@ -99,6 +100,7 @@ function Application() {
     if (err instanceof z.ZodError) {
         const errors = {};
         err.errors.forEach((e) => {
+          alert(e.message)
           errors[e.path[0]] = e.message;
         });
         setFormErrors(errors);
@@ -112,7 +114,16 @@ function Application() {
     <div className="max-w-3xl mx-auto px-4 py-8 mt-12">
       <div className="bg-white shadow-md rounded-lg p-6">
       <h1 className="text-4xl font-mono font-bold mb-4 text-center">Loan Application Form</h1>
-        <p className="font-semibold text-gray-600 text-center mb-6">Step {step} of 4</p>
+      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center m-6 w-full md:w-4/6">
+        {[1, 2, 3, 4].map((item) => (
+        <React.Fragment key={item}>
+        <div className={`flex items-center justify-center rounded-full ${item === step ? "w-12 h-12 bg-indigo-500 text-white font-bold" : "w-10 h-10 bg-gray-300 text-gray-600 hover:w-12 hover:h-12"}`} onClick={() => setStep(item)}>{item}</div>
+        {item < 4 && ( <div className={`h-0.5 ${ item < step ? "bg-indigo-500" : "bg-gray-300" } flex-grow`}/>)}
+        </React.Fragment>
+        ))}
+      </div>
+      </div>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {step == 1 && <>
           <div>

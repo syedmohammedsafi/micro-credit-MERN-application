@@ -7,12 +7,9 @@ const Navbar = () => {
   const role = token ? JSON.parse(atob(token.split(".")[1]))?.role  : null; // Decode the Base64 URL-encoded payload
   return (
     <nav className="fixed z-10 w-full bg-white border-b-2 px-4 md:px-12">
-      <div className="flex justify-between h-16">
-        <div className="flex flex-row items-center gap-3 text-indigo-600">
-          <FaCreditCard size={25} />
-          {!token && <Link to={"/"} className="font-mono font-semibold"> MicroCredit </Link>}
-          {token && <Link to={"/micro-finance/info"} className="font-mono font-semibold"> MicroCredit </Link>}
-        </div>
+      <div className="flex justify-between h-16">  
+        {!token && <Link to={"/"} className="font-mono font-semibold mt-5"><div className="flex flex-row items-center gap-2 text-indigo-600"><FaCreditCard size={25} />MicroCredit</div> </Link>}
+        {token && <Link to={"/micro-finance/info"} className="font-mono font-semibold mt-5"> <div className="flex flex-row items-center gap-2 text-indigo-600"><FaCreditCard size={25} />MicroCredit</div> </Link>}
         <div className="flex flex-row items-center space-x-4">
           {!token ? (
               <><Link to={"/auth/login"} className="font-serif"> Login </Link>
